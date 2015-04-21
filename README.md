@@ -905,7 +905,7 @@ button 要素に `addEventListener` すればよいように
 
 
 `addEventListener` の引数で  
-1-2-4 か 1-3-4 のどちらかを選べます。
+1-2-4 か 2-3-4 のどちらかを選べます。
 
 1. capturing フェーズ
 
@@ -1113,7 +1113,7 @@ fetch('/users.json')
 
 
 
-#### Promise による平行非同期処理
+#### Promise による並行非同期処理
 
 `Promise.all` を使います。
 
@@ -1404,6 +1404,12 @@ y でレジストリへの公開ができないように設定します。
 パッケージは [Search Bower packages](http://bower.io/search/) で  
 検索することができます。
 
+もしくは
+
+	bower search Buttons
+
+でも検索することができます。
+
 
 
 では、試しに [Buttons](https://github.com/alexwolfe/Buttons) パッケージを  
@@ -1509,9 +1515,9 @@ Lint をかけてみましょう。
 
 
 
-#### Promise による平行非同期処理
+#### Promise による並行非同期処理
 
-Promise による平行非同期処理を通常のやりかたと、
+Promise による並行非同期処理を通常のやりかたと、
 Promise らしいやり方とでやってみました。
 
 コードを比較してみてください。
@@ -1640,14 +1646,14 @@ fetch('/api/foo').then(fetchBar(fetchBuz(doSomething)));
 function fetchBar(callback) {
   return function(responseFoo) {
     doSomething(responseFoo);
-    fetchBar(callback);
+    fetch('/api/bar').then(callback);
   };
 }
 
 function fetchBuz(callback) {
   return function(responseBar) {
     doSomething(responseBar);
-    fetchBuz(callback);
+    fetch('/api/buz').then(callback);
   };
 }
 ```
