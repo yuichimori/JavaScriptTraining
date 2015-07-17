@@ -26,11 +26,26 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
 
       var firebrick = document.getElementById('firebrick');
-      firebrick.dispatchEvent(createClickEvent());
-      expect(firebrick).to.have.property('textContent', '2');
+
+      $('#firebrick').on('click', function(event) {
+        var $target = $(event.target);
+        $target.text(Number($target.text()) + 1);
+      });
+
+      //ダブルクリックが起きたらどうなるかを定義
+      $('#firebrick').on('dblclick', function(event) {
+        var $target = $(event.target);
+        $target.text(Number($target.text()) + 2);
+      });
+
+      //ダブルクリックを発火
+      firebrick.dispatchEvent(createDoubleClickEvent());
+
+      //内容をチェック
+      expect(firebrick).to.have.property('textContent', '3');
 
       firebrick.dispatchEvent(createClickEvent());
-      expect(firebrick).to.have.property('textContent', '3');
+      expect(firebrick).to.have.property('textContent', '4');
     });
 
 
@@ -38,9 +53,18 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
       // ここにコードを記述してください。
 
-
       var chocolate = document.getElementById('chocolate');
+
+      $('#chocolate').on('click', function(event){
+        var $target = $(event.target);
+        $target.text(Number($target.text()) - 1);
+      });
+
+
       chocolate.dispatchEvent(createClickEvent());
+
+
+
       expect(chocolate).to.have.property('textContent', '1');
 
       chocolate.dispatchEvent(createClickEvent());
@@ -54,6 +78,14 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
 
       var mediumseagreen = document.querySelector('.mediumseagreen');
+      var degree = 0;
+
+      $('.mediumseagreen').on('click', function(event){
+        var $target = $(event.target);
+        degree += 10;
+        $target.css({transform: 'rotate(' + degree + 'deg)'});
+      });
+
       mediumseagreen.dispatchEvent(createClickEvent());
       expect(mediumseagreen).to.have.deep.property(
         secret('fglyr.genafsbez'), secret('ebgngr(10qrt)'));
@@ -71,6 +103,14 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 
       var turquoise = document.querySelector('.turquoise');
       var turquoiseInput = turquoise.querySelector('input');
+
+
+      $('input').on('change', function(event){
+        var $target = $(event.target).parent();
+        $target.css('transform', 'rotate(' + turquoiseInput.value + 'deg)');
+        // $target.css({transform: 'rotate('+turquoiseInput.value+'deg)' });
+      });
+
 
       simulateChangeEvent(turquoiseInput, 10);
       expect(turquoise).to.have.deep.property(
@@ -93,9 +133,16 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
       // なお、expect(steelblue).to.be.null は上記のテストの要件を満たして
       // いないので、正解ではありません。
 
-      var steelblue = document.querySelector('.steelblue');
-      expect(steelblue).to.have.property('textContent', '5 \uD83D\uDC33');
-      done();
+      // var jsTraining = document.querySelectorAll('.js-training');
+      // var steelblue = jsTraining[0].querySelector('.steelblue');
+
+      // var steelblue = document.querySelector('.js-training li:last-of-type');
+
+      document.addEventListener('DOMContentLoaded', function(){
+        var steelblue = document.querySelector('.steelblue');
+        expect(steelblue).to.have.property('textContent', '5 \uD83D\uDC33');
+        done();
+      });
     });
   });
 });
@@ -104,6 +151,13 @@ describe('ステージ4（意図通りにイベントを利用できる）', fun
 function createClickEvent() {
   var event = document.createEvent('MouseEvents');
   event.initMouseEvent('click', true, true, window,
+                       0, 0, 0, 80, 20, false, false, false, false, 0, null);
+  return event;
+}
+
+function createDoubleClickEvent() {
+  var event = document.createEvent('MouseEvents');
+  event.initMouseEvent('dblclick', true, true, window,
                        0, 0, 0, 80, 20, false, false, false, false, 0, null);
   return event;
 }

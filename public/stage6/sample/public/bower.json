@@ -1,0 +1,23 @@
+{
+  "name": "MyfirstAppllication",
+  "version": "0.0.0",
+  "homepage": "https://github.com/yuichimori/JavaScriptTraining",
+  "authors": [
+    "Yuichi Mori <yuichi.mori@sindbad-int.com>"
+  ],
+  "description": "MyfirstApp",
+  "keywords": [
+    "yuichi"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Buttons": "~2.0.0"
+  }
+}

@@ -13,9 +13,16 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
       // element.removeChild(ghost);
 
 
-      var firebrick = document.getElementById('firebrick');
-      expect(firebrick.childNodes.length).to.equal(1);
-      expect(firebrick).to.have.property('textContent', '1');
+      // var element = document.querySelector('#firebrick');
+      // var ghost = document.querySelector('.firebrick-ghost');
+      // element.removeChild(ghost);
+
+      var element = document.getElementById('firebrick');
+      var ghost = document.querySelector('.firebrick-ghost');
+      element.removeChild(ghost);
+
+      expect(element.childNodes.length).to.equal(1);
+      expect(element).to.have.property('textContent', '1');
     });
 
 
@@ -23,8 +30,10 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
       // ここにコードを記述してください。
 
-
       var darkorange = document.getElementById('chocolate');
+      var invader = document.querySelector('.chocolate-space-invader');
+      darkorange.removeChild(invader);
+
       expect(darkorange.childNodes.length).to.equal(1);
       expect(darkorange).to.have.property('textContent', '2');
     });
@@ -34,8 +43,11 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
       // ここにコードを記述してください。
 
-
       var darkorange = document.querySelector('.mediumseagreen');
+      var everyghost = document.querySelectorAll('.mediumseagreen-ghosts');
+      for(var i = 0; i < everyghost.length; i++){
+        darkorange.removeChild(everyghost[i]);
+      }
       expect(darkorange).to.have.property('textContent', '3\uD83C\uDF3F');
     });
 
@@ -46,8 +58,9 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
       // 上の elementToAdd を追加するコードをここに記述してください。
 
-
       var turquoise = document.querySelector('.turquoise');
+      turquoise.appendChild(elementToAdd);
+
       expect(turquoise.childNodes.length).to.equal(2);
       expect(turquoise).to.have.deep.property('childNodes[0].textContent', '4');
       expect(turquoise).to.have.deep.property('childNodes[1]').equal(elementToAdd);
@@ -61,8 +74,9 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
       // 上の elementToAdd を、5 番の青色の要素の最初に追加するコードを
       // ここに記述してください。
 
-
       var blockquote = document.querySelector('blockquote');
+      blockquote.insertBefore(elementToAdd, blockquote.firstChild);
+
       expect(blockquote.childNodes.length).to.equal(2);
       expect(blockquote).to.have.deep.property('childNodes[0]').equal(elementToAdd);
       expect(blockquote).to.have.deep.property('childNodes[1].textContent', '5');
@@ -82,6 +96,9 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
 
       var $brown = $('#brown');
+      var $ghost = $('.brown-ghost');
+      $ghost.remove();
+
       expect($brown.children()).to.have.length(0);
       expect($brown).to.have.text('6');
     });
@@ -91,8 +108,10 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
       // ここにコードを記述してください。
 
-
       var $darkorange = $('#darkorange');
+      var $invader = $('.darkorange-space-invader');
+      $invader.remove();
+
       expect($darkorange.children()).to.have.length(0);
       expect($darkorange).to.have.text('7');
 
@@ -107,6 +126,9 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
 
       var $limegreen = $('.limegreen');
+      var $ghosts = $('.limegreen-ghosts');
+      $ghosts.remove();
+
       expect($limegreen).to.have.text('8\uD83C\uDF3F');
     });
 
@@ -116,8 +138,9 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
       // 上の $elementToAdd を追加するコードをここに記述してください。
 
-
       var $mediumturquoise = $('.mediumturquoise');
+      $mediumturquoise.append($elementToAdd);
+
       expect($mediumturquoise.children()).to.have.length(1);
       expect($mediumturquoise).to.have.text('9\uD83D\uDC2C');
     });
@@ -128,8 +151,9 @@ describe('ステージ3（意図した通りに DOM 要素の構造を変更で�
 
       // 上の $elementToAdd を追加するコードをここに記述してください。
 
-
       var $p = $('p');
+      $p.prepend($elementToAdd);
+
       expect($p.children()).to.have.length(1);
       expect($p).to.have.text('\uD83D\uDC1F10');
     });

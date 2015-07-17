@@ -1,10 +1,40 @@
 .js-training-playground {
-  box-sizing: border-box;
-  padding: 80px 0;
-  height: 250px;
+  /*box-sizing: border-box;*/
+  /*padding: 80px 0;*/
+  /*height: 250px;*/
+  position: static;
 }
 
 .js-training-button {
   display: block;
   margin: 0 auto;
+}
+
+.man {
+  position: relative;
+  width: 40px;
+  height: 50px;
+  animation-name: walk;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes walk {
+  from {
+  	left: -20%;
+  }
+
+  to {
+  	left: 120%;
+  }
+}
+
+@-moz-keyframes walk {
+  from {
+  	left: -20%;
+  }
+
+  to {
+  	left: 120%;
+  }
 }
